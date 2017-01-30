@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
+    <script src="bower_components/jquery/dist/jquery.slim.min.js"></script>
+      <script src="bower_components/tether/dist/js/tether.min.js" ></script>
+      <script src="bower_components/bootstrap/dist/js/bootstrap.min.js" ></script>
+  </head>
+  <body>
+
+     <div class="container-fluid">
+         <div class="row"  >
+             <div class="col-lg"></div>
+             <div class="col-lg-3" style="margin-top: 50px;">
+         <div class="card">
+              <div class="card-header">
+                Welcome to Agora
+              </div>
+              <div class="card-block">
+                <form>
+                  <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="email" class="form-control" id="username" aria-describedby="username-help" placeholder="Ex: Pilichou">
+                    <small id="username-help" class="form-text text-muted">Can be your name, nickname, etc...</small>
+                  </div>
+                     <div class="form-group">
+                    <label for="exampleSelect1">Room</label>
+                    <select class="form-control" id="rooms">
+                    </select>
+                  </div>
+                  </form>
+                <a href="#" id="send" class="btn btn-primary">Connect</a>
+              </div>
+             <div class="card-footer text-muted" id="infos">
+                 Fetching your location...
+              </div>
+             
+            </div>
+             </div>
+             <div class="col-lg"></div>
+            </div>
+      </div>
+
+
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+        
+        function update_rooms(lat, long){
+            $.ajax({
+                url: "https://agora-chat-server.herokuapp.com/rooms/lat/"+lat+"/long/"+long
+            }).done(function( data ) {               
+                console.log(data);
+                $("#rooms").html("");
+                $('#infos').html("Location found !");                
+                data.rooms.forEach(function(room){
+                    var o = new Option(room.name, room.name);
+                    $(o).html(room.name);
+                    $("#rooms").append(o);
+                });
+                $('#rooms').val(data.rooms[0].name);
+            });
+        }
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                update_rooms(position.coords.latitude, position.coords.longitude);
+            });
+            var watchID =  navigator.geolocation.watchPosition(function(position) {
+            update_rooms(position.coords.latitude, position.coords.longitude);
+                navigator.geolocation.clearWatch(watchID);
+            });
+        } else {
+          alert("Geolocation not available");
+        }
+        $('#send').click(function(){
+            
+            window.location = "chat.html?room="+$('#rooms').val()+"&username="+$('#username').val();
+            console.log("lol");
+        });
+
+    </script>
+  </body>
+</html>
