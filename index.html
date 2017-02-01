@@ -1,83 +1,70 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Socket.IO chat</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/main.css"/>
-    <script src="bower_components/jquery/dist/jquery.slim.min.js"></script>
-      <script src="bower_components/tether/dist/js/tether.min.js" ></script>
-      <script src="bower_components/bootstrap/dist/js/bootstrap.min.js" ></script>
-  </head>
-  <body>
+    <head>
+        <title>Agora Chat</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/main.css"/>
+        <link rel="stylesheet" href="fonts/material-icons.css"/>
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="bower_components/tether/dist/js/tether.min.js" ></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js" ></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </head>
+    <body>
 
-     <div class="container-fluid">
-         <div class="row"  >
-             <div class="col-lg"></div>
-             <div class="col-lg-3" style="margin-top: 50px;">
-         <div class="card">
-              <div class="card-header">
-                Welcome to Agora
-              </div>
-              <div class="card-block">
-                <form>
-                  <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="email" class="form-control" id="username" aria-describedby="username-help" placeholder="Ex: Pilichou">
-                    <small id="username-help" class="form-text text-muted">Can be your name, nickname, etc...</small>
-                  </div>
-                     <div class="form-group">
-                    <label for="exampleSelect1">Room</label>
-                    <select class="form-control" id="rooms">
-                    </select>
-                  </div>
-                  </form>
-                <a href="#" id="send" class="btn btn-primary">Connect</a>
-              </div>
-             <div class="card-footer text-muted" id="infos">
-                 Fetching your location...
-              </div>
-             
-            </div>
-             </div>
-             <div class="col-lg"></div>
-            </div>
-      </div>
-
-    <script>
-        
-        function update_rooms(lat, long){
-            $.ajax({
-                url: "https://agora-chat-server.herokuapp.com/rooms/lat/"+lat+"/long/"+long
-            }).done(function( data ) {               
-                console.log(data);
-                $("#rooms").html("");
-                $('#infos').html("Location found !");                
-                data.rooms.forEach(function(room){
-                    var o = new Option(room.name, room.name);
-                    $(o).html(room.name);
-                    $("#rooms").append(o);
-                });
-                $('#rooms').val(data.rooms[0].name);
-            });
-        }
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                update_rooms(position.coords.latitude, position.coords.longitude);
-            });
-            var watchID =  navigator.geolocation.watchPosition(function(position) {
-            update_rooms(position.coords.latitude, position.coords.longitude);
-                navigator.geolocation.clearWatch(watchID);
-            });
-        } else {
-          alert("Geolocation not available");
-        }
-        $('#send').click(function(){
+    <div class="container-fluid">
+        <div class="row"  >
             
-            window.location = "chat.html?room="+$('#rooms').val()+"&username="+$('#username').val();
-            console.log("lol");
-        });
+            <div class="col-xl col-lg col-md col-sm col-xs"></div>
+            
+            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-12" >
+                
+                <div class="card" style="margin-top: 25px;border:none;">
+                    <img class="card-img-top" src="img/logo.png" style="width:100%;height:auto;" alt="Card image cap">
+                    <div class="card-block">
+                        <p class="card-text">Agora is the first location-based chat app !</p>
+                    </div>
+                </div>
+                
+                <div class="card" style="margin-top: 25px;border:none;">
+                    <div class="card-header">
+                        Connect
+                    </div>
+                    <div class="card-block">
+                        <form>
+                        <label for="username">Location</label>
+                        <div class="form-group">
+                            <div class="btn-group" id="location" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-primary"><i class="material-icons" style="margin:0;">gps_fixed</i></button>
+                                <button type="button" class="btn btn-secondary" id="location_button">Find my location</button>
+                            </div>
+                            <small id="username-help" class="form-text text-muted">We need your location to connect you to the local chatrooms !</small>
+                        </div>
 
-    </script>
-  </body>
+
+                        <div class="form-group hide" id="room_group">
+                            <label for="exampleSelect1">Room</label>
+                            <select class="form-control" id="rooms">
+                            </select>
+                        </div>
+                        <div class="form-group hide" id="username_group">
+                            <label for="username">Username</label>
+                            <input type="email" class="form-control" id="username" aria-describedby="username-help">
+                        </div>
+                        </form>
+                        <a href="#" id="send" class="btn btn-primary disabled">Connect</a>
+                    </div>
+                    <div class="card-footer text-muted" id="infos">
+                    Agora v0.1
+                    </div>
+
+                </div>
+            </div>
+            
+            <div class="col-xl col-lg col-md col-sm col-xs"></div>
+            
+        </div>
+    </div>
+    </body>
 </html>

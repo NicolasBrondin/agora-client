@@ -1,60 +1,51 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Socket.IO chat</title>
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
-    </style>
-  </head>
-  <body>
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    <script>
+    <head>
+        <title>Agora Chat</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/main.css"/>
+        <link rel="stylesheet" href="fonts/material-icons.css"/>
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="bower_components/tether/dist/js/tether.min.js" ></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js" ></script>
+        <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row"  >
+            
+                <div class="col-xl col-lg col-md col-sm col-xs"></div>
+            
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-12" >
+                    <div class="card" style="margin-top: 25px;border:none;">
+                        <div class="card-header" id="chat_header">
+                            Room
+                        </div>
+                        <div class="card-block message-container">
+                            <ul id="message-list">
+                            
+                            </ul>
+                        </div>
+                        <div class="card-footer text-muted">
+                            <form action="">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="user_message" placeholder="Write your message">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-secondary" type="button" id="send_message"><i class="material-icons" style="margin:0;">send</i></button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xl col-lg col-md col-sm col-xs"></div>
+                
+            </div>
+        </div>
         
-        function getQueryParams(qs) {
-    qs = qs.split('+').join(' ');
-
-    var params = {},
-        tokens,
-        re = /[?&]?([^=]+)=([^&]*)/g;
-
-    while (tokens = re.exec(qs)) {
-        params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
-    }
-
-    return params;
-}
-      var query = getQueryParams(document.location.search);
-      var socket = io('https://agora-chat-server.herokuapp.com/');
-      $('form').submit(function(){
-          
-        socket.emit('chat message', {username: query.username, room: query.room, msg:$('#m').val()});
-          
-        $('#m').val('');
-        return false;
-      });
-      socket.on('chat message', function(msg){
-        $('#messages').append($('<li>').text(msg.username+": "+msg.msg));
-      });
+        <script type="text/javascript" src="js/chat.js"></script>
         
-      socket.on('setup', function(msg){
-        socket.emit('setup', {room: query.room, username: query.username});
-      });
-        
-     socket.on('user joined', function(msg){
-         $('#messages').append($('<li>').text("User joined: "+msg.username));
-      });
-    </script>
-  </body>
+    </body>
 </html>
