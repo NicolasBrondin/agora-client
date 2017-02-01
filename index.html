@@ -9,62 +9,64 @@
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
         <script src="bower_components/tether/dist/js/tether.min.js" ></script>
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js" ></script>
-        <script type="text/javascript" src="js/index.js"></script>
     </head>
     <body>
 
-    <div class="container-fluid">
-        <div class="row"  >
-            
-            <div class="col-xl col-lg col-md col-sm col-xs"></div>
-            
-            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-12" >
-                
-                <div class="card" style="margin-top: 25px;border:none;">
-                    <img class="card-img-top" src="img/logo.png" style="width:100%;height:auto;" alt="Card image cap">
-                    <div class="card-block">
-                        <p class="card-text">Agora is the first location-based chat app !</p>
+        <div class="container-fluid">
+            <div class="row"  >
+
+                <div class="col-xl col-lg col-md col-sm col-xs"></div>
+
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-12" >
+
+                    <div class="card" style="margin-top: 25px;border:none;">
+                        <img class="card-img-top" src="img/logo.png" style="width:100%;height:auto;" alt="Card image cap">
+                        <div class="card-block">
+                            <p class="card-text">Agora is the first location-based chat app !</p>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="card" style="margin-top: 25px;border:none;">
-                    <div class="card-header">
-                        Connect
-                    </div>
-                    <div class="card-block">
-                        <form>
-                        <label for="username">Location</label>
-                        <div class="form-group">
-                            <div class="btn-group" id="location" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-primary"><i class="material-icons" style="margin:0;">gps_fixed</i></button>
-                                <button type="button" class="btn btn-secondary" id="location_button">Find my location</button>
+
+                    <div class="card" style="margin-top: 25px;border:none;">
+                        <div class="card-header">
+                            Connect
+                        </div>
+                        <div class="card-block">
+                            <form>
+                            <label for="username">Location</label>
+                            <div class="form-group">
+                                <div class="btn-group" id="location" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-primary"><i class="material-icons" style="margin:0;">gps_fixed</i></button>
+                                    <button type="button" class="btn btn-secondary" id="location_button">Find my location</button>
+                                </div>
+                                <small id="username-help" class="form-text text-muted">We need your location to connect you to the local chatrooms !</small>
                             </div>
-                            <small id="username-help" class="form-text text-muted">We need your location to connect you to the local chatrooms !</small>
-                        </div>
 
 
-                        <div class="form-group hide" id="room_group">
-                            <label for="exampleSelect1">Room</label>
-                            <select class="form-control" id="rooms">
-                            </select>
+                            <div class="form-group hide" id="room_group">
+                                <label for="exampleSelect1">Room</label>
+                                <select class="form-control" id="rooms">
+                                </select>
+                            </div>
+                            <div class="form-group hide" id="username_group">
+                                <label for="username">Username</label>
+                                <input type="email" class="form-control" id="username" aria-describedby="username-help">
+                            </div>
+                            </form>
+                            <a href="#" id="send" class="btn btn-primary disabled">Connect</a>
                         </div>
-                        <div class="form-group hide" id="username_group">
-                            <label for="username">Username</label>
-                            <input type="email" class="form-control" id="username" aria-describedby="username-help">
+                        <div class="card-footer text-muted" id="infos">
+                        Agora v0.1
                         </div>
-                        </form>
-                        <a href="#" id="send" class="btn btn-primary disabled">Connect</a>
+
                     </div>
-                    <div class="card-footer text-muted" id="infos">
-                    Agora v0.1
-                    </div>
-
                 </div>
+
+                <div class="col-xl col-lg col-md col-sm col-xs"></div>
+
             </div>
-            
-            <div class="col-xl col-lg col-md col-sm col-xs"></div>
-            
         </div>
-    </div>
+        
+        <script type="text/javascript" src="js/index.js"></script>
+        
     </body>
 </html>
