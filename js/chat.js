@@ -50,5 +50,8 @@ socket.on('user left', function(msg){
 socket.on('room update', function(data){
     people = data.users;
     $('#chat_header').html('Room: '+query.room+' ('+people+' people)');
+    data.messages.forEach(function(msg){
+        $('#message-list').append($('<li>').append($('<p>').text(msg.username+": "+msg.msg)));
+    })
     console.log(data);
 });
