@@ -1,5 +1,5 @@
-var host = 'http://localhost:3000';
-//var host = 'https://agora-chat-server.herokuapp.com';
+//var host = 'http://localhost:3000';
+var host = 'https://agora-chat-server.herokuapp.com';
 
 //var geolocation_stub = { lat:45.787059, long: 3.113755 };
 var geolocation_stub = null;

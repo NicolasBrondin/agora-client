@@ -1,5 +1,5 @@
-var host = 'http://localhost:3000';
-//var host = 'https://agora-chat-server.herokuapp.com';
+//var host = 'http://localhost:3000';
+var host = 'https://agora-chat-server.herokuapp.com';
 
 function getQueryParams(qs) {
     qs = qs.split('+').join(' ');
