@@ -19,10 +19,17 @@ var query = getQueryParams(document.location.search);
 $('#chat_header').html('Room: '+query.room);
 var socket = io(host);
 
+function send_message(){
+    if($('#user_message').val()!= ""){
+        $('#message-list').append($('<li>').append($('<p>').text(query.username+": "+$('#user_message').val())));
+        socket.emit('chat message', {username: query.username, room: query.room, msg:$('#user_message').val()});
+        $('#user_message').val('');
+    }
+    return false;
+}
+
 $('#send_message').click(function(){
-    $('#message-list').append($('<li>').append($('<p>').text(query.username+": "+$('#user_message').val())));
-    socket.emit('chat message', {username: query.username, room: query.room, msg:$('#user_message').val()});
-    $('#user_message').val('');
+    send_message();
     return false;
 });
 
@@ -54,4 +61,13 @@ socket.on('room update', function(data){
         $('#message-list').append($('<li>').append($('<p>').text(msg.username+": "+msg.msg)));
     })
     console.log(data);
+});
+
+$('#message_form').on('keypress', function(e) {
+  var keyCode = e.keyCode || e.which;
+  if (keyCode === 13) { 
+    e.preventDefault();
+    send_message();
+      return false;
+  }
 });
